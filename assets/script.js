@@ -32,14 +32,25 @@ arrow_right.addEventListener('click', () => {
 arrow_left.addEventListener('click', () => {
 	previous_slide()
 })
+
 function next_slide() {
-	selected_slide++
-	carousel(selected_slide)
+	if (selected_slide === slides.length) {
+		selected_slide = 1
+		carousel(selected_slide)
+	} else {
+		selected_slide++
+		carousel(selected_slide)
+	}
 }
 
 function previous_slide() {
-	selected_slide--
-	carousel(selected_slide)
+	if(selected_slide === 1) {
+		selected_slide = slides.length
+		carousel(selected_slide)
+	} else {
+		selected_slide--
+		carousel(selected_slide)
+	}
 }
 function carousel(selected_slide) {
 	document.querySelector('.dots').innerHTML = ''
@@ -58,7 +69,6 @@ function dots(selected_slide) {
 		let current_slide = index + 1
 		document.querySelector('.dots').innerHTML += `<div class="dot"></div>`
 		if (current_slide === selected_slide) {
-			console.log(current_slide)
 			document.querySelectorAll('.dot')[index].classList.add('dot_selected')
 		}
 	})
