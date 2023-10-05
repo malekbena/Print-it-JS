@@ -22,27 +22,45 @@ const img = document.querySelector('.banner-img')
 const arrows = document.querySelectorAll('.arrow')
 const arrow_right = document.querySelector('.arrow_right')
 const arrow_left = document.querySelector('.arrow_left')
-// slides.forEach(slide => {
-// 	document.querySelector('.dots').innerHTML += `<div class="dot"></div>`
-// 	img.src = `../assets/images/slideshow/${slide.image}`
-// 	if (slide === slides[i]) {
-// 		document.querySelector('.dot').classList.add('dot_selected')
-// 	}
-// })
+let selected_slide = 1
 
-slides.forEach((slide, index) => {
-	let current_slide = 1
-	document.querySelector('.dots').innerHTML += `<div class="dot"></div>`
-	document.querySelector('p').innerHTML = slide.tagLine
-	arrow_right.addEventListener('click', () => {
-		console.log(selected_slide)
-	})
-	arrow_left.addEventListener('click', () => {
-		console.log('left')
-	})
-	if (index + 1 === current_slide) {
-		img.src = `../assets/images/slideshow/${slide.image}`
-		document.querySelector('.dot').classList.add('dot_selected')
-	}
+carousel(selected_slide)
+
+arrow_right.addEventListener('click', () => {
+	next_slide()
 })
+arrow_left.addEventListener('click', () => {
+	previous_slide()
+})
+function next_slide() {
+	selected_slide++
+	carousel(selected_slide)
+}
+
+function previous_slide() {
+	selected_slide--
+	carousel(selected_slide)
+}
+function carousel(selected_slide) {
+	document.querySelector('.dots').innerHTML = ''
+	slides.forEach((slide, index) => {
+		let current_slide = index + 1
+		if (current_slide === selected_slide) {
+			img.src = `../assets/images/slideshow/${slide.image}`
+			document.querySelector('p').innerHTML = slide.tagLine
+		}
+	})
+
+	dots(selected_slide)
+}
+function dots(selected_slide) {
+	slides.forEach((slide, index) => {
+		let current_slide = index + 1
+		document.querySelector('.dots').innerHTML += `<div class="dot"></div>`
+		if (current_slide === selected_slide) {
+			console.log(current_slide)
+			document.querySelectorAll('.dot')[index].classList.add('dot_selected')
+		}
+	})
+}
 
