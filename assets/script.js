@@ -57,7 +57,7 @@ function carousel(selected_slide) {
 	slides.forEach((slide, index) => {
 		let current_slide = index + 1
 		if (current_slide === selected_slide) {
-			img.src = `./assets/images/slideshow/${slide.image}`
+			img.src = `assets/images/slideshow/${slide.image}`
 			document.querySelector('p').innerHTML = slide.tagLine
 		}
 	})
